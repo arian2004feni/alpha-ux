@@ -20,6 +20,9 @@ const Navbar = async () => {
               <span>Create</span>
             </button>
             <SignOut />
+            <Link href={`/profile/${session?.user?.name}`}>
+              <span>{session?.user?.name}</span>
+            </Link>
           </>) : (
             <SignIn />
           )}
