@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SignIn } from "./auth/signInButton";
+import { SignOut } from "./auth/signOutButton";
 
 const Navbar = async () => {
   const session = await auth();
@@ -17,13 +19,9 @@ const Navbar = async () => {
             <button>
               <span>Create</span>
             </button>
-            <button>
-              <span>Signout</span>
-            </button>
+            <SignOut />
           </>) : (
-            <button>
-              <span>Login</span>
-            </button>
+            <SignIn />
           )}
         </div>
       </nav>
