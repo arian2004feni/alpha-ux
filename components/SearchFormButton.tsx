@@ -11,7 +11,7 @@ const SearchFormButton = () => {
   }
   return (
     <Button className="rounded-full size-8" type="reset" onClick={reset}>
-      <Link href="/" className=""><X className="size-5" /></Link>
+      <Link href="/" className=""><X className="size-4" /></Link>
     </Button>
   );
 };
