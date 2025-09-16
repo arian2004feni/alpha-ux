@@ -14,9 +14,7 @@ const ArticleCards = ({ article }: { article: articleTypeCards }) => {
     author: { _id: authorId, name, image: authorImage, bio },
     posted_date,
     views,
-    query,
     category,
-    pitch,
   } = article;
   return (
     <div className="border-2 rounded-lg shadow-md p-4">
