@@ -1,6 +1,6 @@
 import ArticleCards, { ArticleTypeCards } from "@/components/ArticleCards";
 import SearchForm from "@/components/SearchForm";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { ARTICLES_QUERY } from "@/sanity/lib/query";
 // import { title } from "process";
 
@@ -10,7 +10,7 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const articles = await client.fetch(ARTICLES_QUERY);
+  const {data: articles} = await sanityFetch({query: ARTICLES_QUERY})
   return (
     <>
       <section className="bg-black text-white py-10">
@@ -27,6 +27,7 @@ export default async function Home({
           ))}
         </ul>
       </section>
+      <SanityLive />
     </>
   );
 }
