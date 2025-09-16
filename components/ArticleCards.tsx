@@ -4,15 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
+import { Article, Author } from "@/sanity/types";
 
-const ArticleCards = ({ article }: { article: articleTypeCards }) => {
+export type ArticleTypeCards = Omit<Article, "author"> & {author?: Author};
+const ArticleCards = ({ article }: { article: ArticleTypeCards }) => {
   const {
     title,
     _id,
     description,
     image,
-    author: { _id: authorId, name, image: authorImage, bio },
-    posted_date,
+    author,
+    _createdAt,
     views,
     category,
   } = article;
@@ -20,29 +22,29 @@ const ArticleCards = ({ article }: { article: articleTypeCards }) => {
     <div className="border-2 rounded-lg shadow-md p-4">
       <div className="flex justify-between mb-5">
         <span className="p-2 bg-gray-200 rounded-4xl">
-          {formatDate(posted_date)}
+          {formatDate(_createdAt)}
         </span>
         <span className="flex items-center gap-1">
           <EyeIcon className="" />
           {views}
         </span>
       </div>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-3 gap-2">
         <div className="">
-          <Link href={`/author/${authorId}`} className="line-clamp-1">
-            {name}
+          <Link href={`/author/${author?._id}`} className="line-clamp-1">
+            {author?.name}
           </Link>
           <Link href={`/article/${_id}`}>
             <h3 className="line-clamp-1 text-2xl font-bold">{title}</h3>
           </Link>
         </div>
-        <Link href={`/author/${authorId}`}>
+        <Link href={`/author/${author?._id}`} className="w-12 flex-shrink-0">
           <Image
-            src={authorImage}
-            alt={name}
-            width={40}
-            height={40}
-            className="rounded-full object-cover w-10 h-10"
+            src='https://placehold.co/48x48'
+            alt='placehold'
+            width={48}
+            height={48}
+            className="rounded-full object-cover"
           />
         </Link>
       </div>
@@ -55,7 +57,7 @@ const ArticleCards = ({ article }: { article: articleTypeCards }) => {
         />
       </Link>
       <div className="flex justify-between items-center mt-4 line-clamp-1">
-        <Link href={`/?query=${category.toLowerCase()}`}>{category}</Link>
+        <Link href={`/?query=${category?.toLowerCase()}`}>{category}</Link>
         <Button asChild>
           <Link href={`/article/${_id}`}>Details</Link>
         </Button>
