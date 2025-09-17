@@ -3,6 +3,9 @@ import { client } from "@/sanity/lib/client";
 import { ARTICLE_BY_ID_QUERY } from "@/sanity/lib/query";
 import Image from "next/image";
 import markdownit from "markdown-it";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import Views from "@/components/Views";
 import Link from "next/link";
 
 export const experimental_ppr = true;
@@ -58,7 +61,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
         <hr className="divider" />
         {/* TODO: Editor selected setup */}
-        
+        <Suspense fallback={<Skeleton className="bg-zinc-300 h-10 w-20 rounded-lg fixed bottom-3 right-3" />}>
+          <Views id={id} />
+        </Suspense>
       </section>
     </>
   );

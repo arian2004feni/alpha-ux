@@ -28,3 +28,5 @@ export const ARTICLE_BY_ID_QUERY = defineQuery(`*[_type == "article" && _id == $
   image,
   blog
 }`)
+
+export const ARTICLE_VIEWS_QUERY = defineQuery(`*[_type == "article" && _id == $id][0]{_id, views}`)
