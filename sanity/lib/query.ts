@@ -13,3 +13,18 @@ export const ARTICLES_QUERY = defineQuery(`*[_type == "article" && defined(slug.
   category,
   image,
 }`)
+
+export const ARTICLE_BY_ID_QUERY = defineQuery(`*[_type == "article" && _id == $id][0]{
+  _id, 
+  title,
+  slug,
+  _createdAt,
+  author -> {
+    _id, name, username, image, bio
+  },
+  views,
+  description,
+  category,
+  image,
+  blog
+}`)
