@@ -15,6 +15,9 @@ export default async function Home({
   return (
     <>
       <section className="bg-black text-white py-10">
+        <h3 className="bg-amber-400 px-3 py-2 w-fit mx-auto mb-4">
+          Hello World
+        </h3>
         <h1 className="text-center text-5xl">Hero Section</h1>
         <SearchForm query={query} />
       </section>
