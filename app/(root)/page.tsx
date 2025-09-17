@@ -10,7 +10,8 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const {data: articles} = await sanityFetch({query: ARTICLES_QUERY})
+  const params = {search: query || null};
+  const {data: articles} = await sanityFetch({query: ARTICLES_QUERY, params});
   return (
     <>
       <section className="bg-black text-white py-10">
