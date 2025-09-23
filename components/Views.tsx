@@ -2,13 +2,21 @@ import { formatViewCount } from "@/lib/utils";
 import Ping from "./Ping";
 import { client } from "@/sanity/lib/client";
 import { ARTICLE_VIEWS_QUERY } from "@/sanity/lib/query";
+import { writeClient } from "@/sanity/lib/write-client";
+import { after } from "next/server";
 
 const Views = async ({ id }: { id: string }) => {
   const { views: totalViews } = await client
     .withConfig({ useCdn: false })
     .fetch(ARTICLE_VIEWS_QUERY, { id });
 
-    // TODO: Implement real-time view increment logic here
+  after(
+    async () =>
+      await writeClient
+        .patch(id)
+        .set({ views: totalViews + 1 })
+        .commit()
+  );
 
   return (
     <div className="flex justify-end items-center mt-5 fixed bottom-3 right-3 bg-amber-100 rounded">
