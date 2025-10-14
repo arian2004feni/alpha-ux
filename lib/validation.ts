@@ -26,5 +26,5 @@ export const formSchema = z.object({
         return false;
       }
     }),
-  article: z.string().min(10, "Article must be at least 10 characters long"),
+  blog: z.string().min(10, "Blog must be at least 10 characters long"),
 });

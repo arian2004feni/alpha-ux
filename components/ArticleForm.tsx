@@ -9,10 +9,11 @@ import { formSchema } from "@/lib/validation";
 import z from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createArticle } from "@/lib/actions";
 
 const ArticleForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [article, setArticle] = useState("");
+  const [blog, setBlog] = useState("");
 
   const router = useRouter();
 
@@ -23,22 +24,23 @@ const ArticleForm = () => {
         description: formData.get("description") as string,
         category: formData.get("category") as string,
         link: formData.get("link") as string,
-        article,
+        blog,
       };
+      
       await formSchema.parseAsync(formValues);
       console.log(formValues);
-      toast.success("Article submitted successfully!");
 
-      // const result = await createIdea.(prevState, formData, article);
-      // console.log(result);
+      const result = await createArticle(prevState, formData, blog);
+      console.log(result);
 
-      // if(result.status == 'success'){
-      //   toast.success("Article submitted successfully!")
-      //   router.push(`/article/${result.id}`)
-      // }
-
-      // return result;
+      if (result.status === "SUCCESS") {
+        toast.success("Article submitted successfully!");
+        router.push(`/article/${result._id}`);
+      }
+      
+      return result;
     } catch (error) {
+      console.log(error);
       if (error instanceof z.ZodError) {
         const fe = error.flatten().fieldErrors;
 
@@ -114,11 +116,11 @@ const ArticleForm = () => {
         )}
       </div>
       <div data-color-mode="light">
-        <label htmlFor="articleMd">Article</label>
+        <label htmlFor="blog">Blog</label>
         <MDEditor
-          value={article}
-          onChange={(e) => setArticle(e as string)}
-          id="articleMd"
+          value={blog}
+          onChange={(e) => setBlog(e as string)}
+          id="blog"
           preview="edit"
           height={300}
           style={{
@@ -133,8 +135,8 @@ const ArticleForm = () => {
             disallowedElements: ["style"],
           }}
         />
-        {errors.article && (
-          <p className="text-red-500 text-sm mt-1">{errors.article}</p>
+        {errors.blog && (
+          <p className="text-red-500 text-sm mt-1">{errors.blog}</p>
         )}
       </div>
       <Button
