@@ -35,12 +35,12 @@ const ArticleCards = ({ article }: { article: ArticleTypeCards }) => {
             {author?.name}
           </Link>
           <Link href={`/article/${_id}`}>
-            <h3 className="line-clamp-1 text-2xl font-bold">{title}</h3>
+            <h3 className="line-clamp-1 text-2xl font-bold" title={title}>{title}</h3>
           </Link>
         </div>
         <Link href={`/author/${author?._id}`} className="w-12 flex-shrink-0">
           <Image
-            src='https://placehold.co/48x48'
+            src={author?.image as string}
             alt='placehold'
             width={48}
             height={48}

@@ -21,9 +21,9 @@ export default async function Home({
         <h1 className="text-center text-5xl">Hero Section</h1>
         <SearchForm query={query} />
       </section>
-      <section>
+      <section className="px-4">
         <h2>{query ? `Search Result for "${query}"` : "All Articles"}</h2>
-        <ul className="grid grid-cols-3 gap-2">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {articles?.map((article: ArticleTypeCards) => (
             <li key={article?._id}>
               <ArticleCards article={article} />

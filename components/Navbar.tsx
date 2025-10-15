@@ -19,8 +19,8 @@ const Navbar = async () => {
               <span>Create</span>
             </Link>
             <SignOut />
-            <Link href={`/profile/${session?.user?.name}`}>
-              <span>{session?.user?.name}</span>
+            <Link href={`/author/${session?.id}`} className="flex items-center gap-1">
+              <Image src={session?.user?.image} width={36} height={36} alt="User" className="rounded-full" />
             </Link>
           </>) : (
             <SignIn />
